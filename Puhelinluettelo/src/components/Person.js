@@ -2,7 +2,7 @@ const Person = (props) => {
     return (
     
         <p>
-        {props.name}
+        {props.name} {props.number}
         </p>
     );
   }
