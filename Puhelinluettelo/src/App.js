@@ -4,9 +4,11 @@ import Person from './components/Person'
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-1234567', id: 1 },
+    { name: 'Pekka Paku', number: '050-2141422', id: 2},
   ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')  
+  const [filterText, setFilterText] = useState('')
   
 
   
@@ -33,16 +35,30 @@ const App = () => {
     setNewName(event.target.value)
   }
 
+  const handleFilterChange = (event) => {
+    setFilterText(event.target.value);
+  };
+
   const handleNumberChange = (event) => {
       console.log(event.target.value)
       setNewNumber(event.target.value)  
   }
 
+
+  const filteredPersons = persons.filter(person =>
+    person.name.toLowerCase().includes(filterText.toLowerCase()) || person.number.includes(filterText))
  
 
   return (
     <div>
       <h2>Phonebook</h2>
+        <div>
+          filter: <input
+          value={filterText}
+          onChange={handleFilterChange}>
+          </input>
+        </div>
+      <h3>Add new</h3>
       <form onSubmit={addPerson}>
         <div>
           name: <input
@@ -59,7 +75,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-          {persons.map(person =>
+          {filteredPersons.map(person =>
             <Person key={person.name} name={person.name} number={person.number} />
           )}
     </div>
