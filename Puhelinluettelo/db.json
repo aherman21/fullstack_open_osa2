@@ -1,16 +1,6 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": 1
-    },
-    {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": 2
-    },
-    {
       "name": "Dan Abramov",
       "number": "12-43-234345",
       "id": 3
@@ -21,24 +11,9 @@
       "id": 4
     },
     {
-      "name": "aahj",
-      "number": "14242",
-      "id": 5
-    },
-    {
-      "name": "Erkki",
-      "number": "500665134",
-      "id": 6
-    },
-    {
-      "name": "Maija",
-      "number": "235235532",
-      "id": 7
-    },
-    {
-      "name": "uusihenkikll",
-      "number": "1234214421",
-      "id": 8
+      "name": "Ahti",
+      "number": "",
+      "id": "847329ae-77fb-4dfb-807a-51673e13b78b"
     }
   ]
 }

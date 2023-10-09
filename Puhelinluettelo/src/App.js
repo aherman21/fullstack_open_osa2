@@ -5,6 +5,7 @@ import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import personService from './services/persons'
+import { v4 as uuidv4} from 'uuid'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -32,7 +33,7 @@ const App = () => {
     const personObject = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1,
+      id: uuidv4()  //UUID otettu käyttöön jotta ei tule vahingossa duplicate ID casea
     }
     if (persons.some(person =>
       person.name.toLowerCase() === newName.toLowerCase())) {
@@ -40,13 +41,17 @@ const App = () => {
       return
     }
 
-  personService
-    .create(personObject)
-    .then(initialPersons => {
-      setPersons(persons.concat(initialPersons))
-      setNewName('')
-    })
+    personService
+      .create(personObject)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+        setNewNumber('')
+      })
+
+  
 }
+
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -58,6 +63,15 @@ const App = () => {
 
   const handleNumberChange = (event) => {
       setNewNumber(event.target.value)  
+  }
+
+  const handleRemove = (id, name) => {
+    if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+      personService.remove(id)
+        .then(() => {
+          setPersons(persons.filter(person => person.id !== id))
+        })
+      }
   }
 
 
@@ -75,11 +89,12 @@ const App = () => {
       <PersonForm
         addPerson={addPerson}
         newName={newName}
+        newNumber={newNumber}
         handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-          <Persons filteredPersons={filteredPersons}></Persons>
+          <Persons filteredPersons={filteredPersons} onRemove={handleRemove}></Persons>
     </div>
   )
 
