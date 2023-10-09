@@ -23,6 +23,15 @@ const App = () => {
       })
   }, [])
   console.log('render', persons.length, 'persons')
+
+  const updateNumber = (id, personObject) => {
+    if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+    personService.update(id, personObject)
+      .then(returnedPerson => {
+        setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
+      })
+    }
+  }
   
     
   
@@ -37,7 +46,7 @@ const App = () => {
     }
     if (persons.some(person =>
       person.name.toLowerCase() === newName.toLowerCase())) {
-      alert(`${newName} is already added to phonebook`)
+      updateNumber(persons.find(person => person.name.toLowerCase() === newName.toLowerCase()).id, personObject)
       return
     }
 
@@ -51,6 +60,7 @@ const App = () => {
 
   
 }
+
 
 
   const handleNameChange = (event) => {
