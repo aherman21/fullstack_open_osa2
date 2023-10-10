@@ -5,6 +5,7 @@ import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import Filter from './components/Filter'
 import personService from './services/persons'
+import Notification from './components/Notification'
 import { v4 as uuidv4} from 'uuid'
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')  
   const [filterText, setFilterText] = useState('')
+  const [notification, setNotification] = useState(null)
 
 
   useEffect(() => {
@@ -56,6 +58,10 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
+        setNotification(`Added ${personObject.name}`)
+        setTimeout(() => {
+          setNotification(null)
+        }, 3000)
       })
 
   
@@ -91,7 +97,8 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <Notification message={notification}></Notification>
+      <h1>Phonebook</h1>
         <Filter
         filterText={filterText}
         handleFilterChange={handleFilterChange} />
@@ -103,7 +110,7 @@ const App = () => {
         handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange}
       />
-      <h2>Numbers</h2>
+      <h1>Numbers</h1>
           <Persons filteredPersons={filteredPersons} onRemove={handleRemove}></Persons>
     </div>
   )
