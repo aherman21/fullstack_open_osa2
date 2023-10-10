@@ -6,6 +6,7 @@ import Persons from './components/Persons'
 import Filter from './components/Filter'
 import personService from './services/persons'
 import Notification from './components/Notification'
+import Rnotification from './components/Rnotification'
 import { v4 as uuidv4} from 'uuid'
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')  
   const [filterText, setFilterText] = useState('')
   const [notification, setNotification] = useState(null)
+  const [rnotification, setRnotification] = useState(null)
 
 
   useEffect(() => {
@@ -31,6 +33,12 @@ const App = () => {
     personService.update(id, personObject)
       .then(returnedPerson => {
         setPersons(persons.map(person => person.id !== id ? person : returnedPerson))
+      })
+      .catch(error => {
+        setRnotification(`${personObject.name} has already been removed from server`)
+        setTimeout(() => {
+          setRnotification(null)
+        }, 3000)
       })
     }
   }
@@ -98,6 +106,7 @@ const App = () => {
   return (
     <div>
       <Notification message={notification}></Notification>
+      <Rnotification message={rnotification}></Rnotification>
       <h1>Phonebook</h1>
         <Filter
         filterText={filterText}
