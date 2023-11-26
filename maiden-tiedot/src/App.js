@@ -4,6 +4,7 @@ import axios from 'axios';
 import SearchBar from './components/SearchBar';
 import CountryList from './components/CountryList';
 
+
 const App = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [countries, setCountries] = useState([]);
@@ -51,4 +52,7 @@ const App = () => {
 };
 
 export default App;
+
+
+
 

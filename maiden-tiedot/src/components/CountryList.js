@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Weather from './Weather';
 
 const CountryList = ({ countries, onShowCountry }) => {
     if (countries.length > 10) {
@@ -22,14 +23,16 @@ const CountryList = ({ countries, onShowCountry }) => {
                 <h1>Country name: {country.name.common}</h1>
                 <p>Capital: {country.capital[0]}</p>
                 <p>Area: {country.area}</p>
-                <p>Population: {country.population}</p>
-                <img src={country.flags.png} alt={`Flag of ${country.name.common}`} width="200" />
                 <h2>Languages</h2>
                 <ul>
                     {Object.values(country.languages).map((language, index) => (
                         <li key={index}>{language}</li>
                     ))}
                 </ul>
+                <p>Population: {country.population}</p>
+                <img src={country.flags.png} alt={`Flag of ${country.name.common}`} width="200" />
+                <Weather capitalLat={country.capitalInfo.latlng[0]} capitalLon={country.capitalInfo.latlng[1]}></Weather>
+                
             </div>
         );
     } else if (countries.length === 0) {
